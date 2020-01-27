@@ -9,7 +9,7 @@ module.exports = {
     },
     output: {
         path: path.join(__dirname, 'dist'),
-        publicPath: '/',
+        publicPath: './',
         filename: '[name].js'
     },
     target: 'web',
@@ -49,8 +49,15 @@ module.exports = {
             },
             {
                 // Loads images into CSS and Javascript files
-                test: /\.jpg$/,
-                use: [{loader: "url-loader"}]
+                test: /\.(png|svg|jpg|gif)$/,
+                use: [{
+                        loader: 'file-loader',
+                        options: {
+                            name: '[name].[ext]',
+                            /* context: path.resolve(__dirname, '/src'),*/
+                            outputPath: 'images/'
+                        }
+                }]
             },
             {
                 // Loads CSS into a file when you import it via Javascript
